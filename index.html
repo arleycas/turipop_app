@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TuriPOP · Aeropuerto El Dorado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Questrial&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --g1:#7F5AF0; --g2:#2CB1BC; --g3:#FF8E53; --g4:#FF4D8D;
+    --ink:#101322; --muted:#8A90A8; --glass:rgba(255,255,255,.14);
+    --glass-strong:rgba(255,255,255,.9); --stroke:rgba(255,255,255,.35);
+  }
+  *{box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    font-family:'Sora','Century Gothic',sans-serif;
+    background:radial-gradient(circle at 50% 20%,#1a2140,#070a16 70%);
+    min-height:100vh; display:flex; align-items:center; justify-content:center;
+    padding:24px; overflow:hidden;
+  }
+  /* piso del aeropuerto (reflejo) */
+  .floor{position:fixed; left:0; right:0; bottom:0; height:26vh; z-index:1;
+    background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,0));
+    border-top:1px solid rgba(255,255,255,.06);}
+  /* fondo animado con orbes de color */
+  .bg{position:fixed; inset:0; overflow:hidden; z-index:0;}
+  .orb{position:absolute; border-radius:50%; filter:blur(80px); opacity:.6; animation:float 14s ease-in-out infinite;}
+  .orb.a{width:460px;height:460px;background:var(--g1); top:-120px; left:-100px;}
+  .orb.b{width:420px;height:420px;background:var(--g2); bottom:-130px; right:-90px; animation-delay:-4s;}
+  .orb.c{width:360px;height:360px;background:var(--g4); top:40%; left:55%; animation-delay:-8s;}
+  @keyframes float{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(40px,-30px) scale(1.12);}}
+
+  /* ===== TÓTEM / KIOSCO DE AEROPUERTO ===== */
+  .kiosk{position:relative; z-index:3; display:flex; flex-direction:column; align-items:center;
+    height:94vh; max-height:1000px;}
+  /* cuerpo del tótem: pantalla grande vertical montada en mueble */
+  .phone{
+    position:relative; width:min(560px,86vw); flex:1; min-height:0;
+    border-radius:30px 30px 14px 14px; padding:26px 22px 30px;
+    background:linear-gradient(160deg,#2a3350,#141a2e);
+    box-shadow:0 50px 110px rgba(0,0,0,.6), inset 0 2px 0 rgba(255,255,255,.12),
+      0 0 0 10px #0f1424, 0 0 0 12px rgba(255,255,255,.06);
+  }
+  /* cámara/sensor arriba del tótem */
+  .phone::before{content:''; position:absolute; top:10px; left:50%; transform:translateX(-50%);
+    width:70px; height:7px; border-radius:6px; background:rgba(255,255,255,.14);}
+  .viewport{position:relative; width:100%; height:100%; border-radius:16px; overflow:hidden; background:#070b16;
+    box-shadow:inset 0 0 60px rgba(0,0,0,.6);}
+  /* base / pedestal del tótem */
+  .base{width:230px; height:40px; margin-top:-6px;
+    background:linear-gradient(180deg,#232c47,#0e1324); border-radius:0 0 16px 16px;
+    box-shadow:0 24px 50px rgba(0,0,0,.6);}
+  .base2{width:330px; height:22px; border-radius:14px; margin-top:2px;
+    background:linear-gradient(180deg,#1b2238,#0a0e1c); box-shadow:0 30px 50px rgba(0,0,0,.55);}
+
+  .screen{
+    position:absolute; inset:0; padding:40px 40px 36px; display:flex; flex-direction:column;
+    opacity:0; transform:translateX(50px) scale(.98); pointer-events:none;
+    transition:opacity .45s ease, transform .45s cubic-bezier(.2,.8,.2,1);
+    background-size:cover; background-position:center;
+  }
+  .screen.active{opacity:1; transform:none; pointer-events:auto;}
+  .screen::before{content:''; position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,14,30,.55),rgba(10,14,30,.9)); z-index:0;}
+  .screen > *{position:relative; z-index:1;}
+
+  /* header marca */
+  .brand{display:flex; align-items:center; gap:16px; margin-bottom:10px;}
+  .brand .logo{width:62px;height:62px;border-radius:20px;flex-shrink:0;
+    background:conic-gradient(from 180deg,var(--g1),var(--g2),var(--g3),var(--g4),var(--g1));
+    display:flex;align-items:center;justify-content:center; box-shadow:0 8px 20px rgba(127,90,240,.5);}
+  .brand .logo svg{width:34px;height:34px;}
+  .brand h1{color:#fff; font-size:26px; font-weight:800; letter-spacing:.3px;}
+  .brand p{color:rgba(255,255,255,.6); font-size:14px;}
+
+  .pill{align-self:flex-start; background:var(--glass); border:1px solid var(--stroke);
+    color:#fff; font-size:15px; font-weight:600; padding:9px 20px; border-radius:30px; margin:10px 0 18px;
+    backdrop-filter:blur(6px);}
+  h2.q{color:#fff; font-size:30px; font-weight:700; margin:18px 0 14px; line-height:1.25;}
+  .sub{color:rgba(255,255,255,.7); font-size:18px;}
+  .center{text-align:center;} .spacer{flex:1;}
+  .title-hero{color:#fff; font-size:46px; font-weight:800; line-height:1.1; text-align:center; margin:8px 0;}
+  .grad-text{background:linear-gradient(90deg,var(--g3),var(--g4)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+
+  /* botones con glow */
+  .btn{border:none; border-radius:22px; color:#fff; font-family:inherit; font-size:21px; font-weight:700;
+    padding:22px; width:100%; cursor:pointer; margin-top:16px; position:relative; overflow:hidden;
+    display:flex; align-items:center; justify-content:center; gap:10px; transition:transform .12s, box-shadow .25s;}
+  .btn:active{transform:scale(.97);}
+  .btn.primary{background:linear-gradient(90deg,var(--g3),var(--g4)); box-shadow:0 12px 30px rgba(255,77,141,.45);}
+  .btn.primary:hover{box-shadow:0 14px 40px rgba(255,77,141,.65);}
+  .btn.glass{background:var(--glass); border:1px solid var(--stroke); backdrop-filter:blur(6px);}
+  .btn.aqua{background:linear-gradient(90deg,var(--g1),var(--g2)); box-shadow:0 12px 30px rgba(44,177,188,.4);}
+  .btn .shine{position:absolute; top:0; left:-60%; width:40%; height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,.5),transparent); transform:skewX(-20deg); animation:shine 3.5s infinite;}
+  @keyframes shine{0%{left:-60%;}60%,100%{left:140%;}}
+
+  /* opciones glass */
+  .opts{display:flex; gap:14px; flex-wrap:wrap;}
+  .opts.col{flex-direction:column;}
+  .opt{flex:1; min-width:120px; background:var(--glass); border:2px solid var(--stroke); border-radius:22px;
+    padding:20px 12px; text-align:center; cursor:pointer; color:#fff; font-weight:600; font-size:18px;
+    display:flex; flex-direction:column; align-items:center; gap:12px; transition:.2s; backdrop-filter:blur(6px);}
+  .opt.row{flex-direction:row; justify-content:flex-start; gap:18px; text-align:left; padding:22px 24px;}
+  .opt .ic{width:58px;height:58px;border-radius:17px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .opt .ic svg{width:32px;height:32px;}
+  .opt:hover{transform:translateY(-2px);}
+  .opt.sel{border-color:#fff; background:linear-gradient(135deg,rgba(255,142,83,.35),rgba(255,77,141,.35)); box-shadow:0 8px 24px rgba(255,77,141,.3);}
+
+  /* tarjetas reco con vidrio e imagen */
+  .card{display:flex; border-radius:24px; overflow:hidden; margin-bottom:18px; background:var(--glass);
+    border:1px solid var(--stroke); backdrop-filter:blur(8px); box-shadow:0 10px 30px rgba(0,0,0,.3);
+    animation:rise .5s ease both;}
+  .card .thumb{width:124px; flex-shrink:0; position:relative; display:flex; align-items:center; justify-content:center;}
+  .card .thumb .ic{width:54px;height:54px;}
+  .card .body{padding:18px 22px; flex:1; color:#fff;}
+  .card .body .tagn{font-size:13px; font-weight:700; letter-spacing:1px; text-transform:uppercase; opacity:.8;}
+  .card .body h3{font-size:23px; font-weight:700; margin:3px 0 4px;}
+  .card .body p{color:rgba(255,255,255,.7); font-size:16px; margin-bottom:12px;}
+  .card .body .more{display:inline-block; font-size:15px; font-weight:700; padding:8px 20px; border-radius:14px;
+    background:rgba(255,255,255,.9); color:var(--ink);}
+  @keyframes rise{from{opacity:0; transform:translateY(16px);}to{opacity:1; transform:none;}}
+
+  /* estrellas */
+  .stars{display:flex; justify-content:center; gap:16px; margin:32px 0;}
+  .star{font-size:62px; color:rgba(255,255,255,.25); cursor:pointer; transition:.15s; line-height:1;}
+  .star.on{color:#FFD166; transform:scale(1.15); text-shadow:0 0 18px rgba(255,209,102,.8);}
+
+  .biglogo{width:150px;height:150px;border-radius:40px;align-self:center;margin:30px 0 14px;
+    background:conic-gradient(from 180deg,var(--g1),var(--g2),var(--g3),var(--g4),var(--g1));
+    display:flex;align-items:center;justify-content:center; box-shadow:0 20px 50px rgba(127,90,240,.6);
+    animation:pulse 3s ease-in-out infinite;}
+  .biglogo svg{width:82px;height:82px;}
+  @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
+  .check{width:140px;height:140px;border-radius:50%;align-self:center;margin:20px 0;
+    background:linear-gradient(135deg,var(--g1),var(--g2)); display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:74px; box-shadow:0 16px 44px rgba(44,177,188,.6); animation:pop .5s ease both;}
+  @keyframes pop{from{transform:scale(.4);opacity:0;}to{transform:scale(1);opacity:1;}}
+  .row2{display:flex; gap:16px;} .row2 .btn{margin-top:0;}
+  .langbar{display:flex; gap:12px; justify-content:center; margin-top:8px;}
+  .langbar button{background:var(--glass); border:1px solid var(--stroke); color:#fff; border-radius:24px;
+    padding:14px 32px; font-family:inherit; font-weight:600; font-size:17px; cursor:pointer; backdrop-filter:blur(6px);}
+  .langbar button.on{background:linear-gradient(90deg,var(--g3),var(--g4)); border-color:transparent;}
+  .dots{display:flex; gap:7px; justify-content:center; margin-top:16px;}
+  .dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.3);}
+  .dot.on{background:#fff; width:26px; border-radius:5px;}
+</style>
+</head>
+<body>
+<div class="bg"><div class="orb a"></div><div class="orb b"></div><div class="orb c"></div></div>
+<div class="floor"></div>
+
+<div class="kiosk">
+<div class="phone"><div class="viewport">
+
+  <!-- P1 -->
+  <div class="screen active" id="s1" style="background-image:url('https://images.unsplash.com/photo-1569154941061-e231b4725ef1?w=800&q=80')">
+    <div class="brand"><div class="logo"><svg viewBox="0 0 24 24"><path d="M12 2C8.1 2 5 5.1 5 9c0 5 7 13 7 13s7-8 7-13c0-3.9-3.1-7-7-7z" fill="#fff"/><circle cx="12" cy="9" r="2.6" fill="#FF4D8D"/></svg></div><div><h1>TuriPOP</h1><p>Aeropuerto El Dorado</p></div></div>
+    <div class="biglogo"><svg viewBox="0 0 24 24"><path d="M12 2C8.1 2 5 5.1 5 9c0 5 7 13 7 13s7-8 7-13c0-3.9-3.1-7-7-7z" fill="#fff"/><circle cx="12" cy="9" r="2.6" fill="#FF4D8D"/></svg></div>
+    <h2 class="title-hero" data-es="Tu viaje <span class='grad-text'>empieza aquí</span>" data-en="Your trip <span class='grad-text'>starts here</span>">Tu viaje <span class="grad-text">empieza aquí</span></h2>
+    <p class="center sub" data-es="Guía turística inteligente y personalizada" data-en="Smart, personalized tourist guide">Guía turística inteligente y personalizada</p>
+    <div class="spacer"></div>
+    <p class="center sub" data-es="Elige tu idioma" data-en="Choose your language" style="margin-bottom:4px">Elige tu idioma</p>
+    <div class="langbar"><button id="lb-es" class="on" onclick="setLang('es')">Español</button><button id="lb-en" onclick="setLang('en')">English</button></div>
+    <button class="btn primary" onclick="go('s2')"><span class="shine"></span><span data-es="Comenzar" data-en="Start">Comenzar</span> →</button>
+  </div>
+
+  <!-- P2 -->
+  <div class="screen" id="s2" style="background-image:url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80')">
+    <div class="pill" data-es="✦ Paso 1 de 3 · Sobre tu viaje" data-en="✦ Step 1 of 3 · About your trip">✦ Paso 1 de 3 · Sobre tu viaje</div>
+    <h2 class="q" data-es="¿De dónde vienes?" data-en="Where are you from?">¿De dónde vienes?</h2>
+    <div class="opts">
+      <div class="opt" onclick="pick(this)"><div class="ic" style="background:linear-gradient(135deg,#FF8E53,#FF4D8D)"><svg viewBox="0 0 24 24"><path d="M5 3v18M5 4h12l-2 3 2 3H5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span data-es="Nacional" data-en="Domestic">Nacional</span></div>
+      <div class="opt" onclick="pick(this)"><div class="ic" style="background:linear-gradient(135deg,#7F5AF0,#2CB1BC)"><svg viewBox="0 0 24 24"><path d="M12 2a6 6 0 00-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 00-6-6z" fill="#fff"/><circle cx="12" cy="8" r="2" fill="#7F5AF0"/></svg></div><span data-es="Internacional" data-en="International">Internacional</span></div>
+    </div>
+    <h2 class="q" data-es="¿Motivo del viaje?" data-en="Purpose of trip?">¿Motivo del viaje?</h2>
+    <div class="opts">
+      <div class="opt" onclick="pick(this);choice.reason='tourism'"><div class="ic" style="background:linear-gradient(135deg,#FF8E53,#FF4D8D)"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6 6.6.5-5 4.3 1.6 6.4L12 16l-6.1 3.2 1.6-6.4-5-4.3 6.6-.5z" fill="#fff"/></svg></div><span data-es="Turismo" data-en="Tourism">Turismo</span></div>
+      <div class="opt" onclick="pick(this);choice.reason='business'"><div class="ic" style="background:linear-gradient(135deg,#2CB1BC,#7F5AF0)"><svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="11" rx="2" fill="#fff"/><rect x="9" y="4" width="6" height="4" rx="1" fill="none" stroke="#fff" stroke-width="2"/></svg></div><span data-es="Negocios" data-en="Business">Negocios</span></div>
+      <div class="opt" onclick="pick(this);choice.reason='family'"><div class="ic" style="background:linear-gradient(135deg,#FF4D8D,#7F5AF0)"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3" fill="#fff"/><circle cx="16" cy="9" r="2.4" fill="#fff"/><path d="M3 20c0-3 2.5-5 5-5s5 2 5 5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div><span data-es="Familia" data-en="Family">Familia</span></div>
+    </div>
+    <h2 class="q" data-es="¿Cuánto tiempo tienes?" data-en="How much time?">¿Cuánto tiempo tienes?</h2>
+    <div class="opts">
+      <div class="opt" onclick="pick(this)"><span data-es="&lt; 1 día" data-en="&lt; 1 day">&lt; 1 día</span></div>
+      <div class="opt" onclick="pick(this)"><span data-es="1-3 días" data-en="1-3 days">1-3 días</span></div>
+      <div class="opt" onclick="pick(this)"><span data-es="+3 días" data-en="+3 days">+3 días</span></div>
+    </div>
+    <div class="spacer"></div>
+    <button class="btn primary" onclick="go('s3')"><span data-es="Continuar" data-en="Continue">Continuar</span> →</button>
+  </div>
+
+  <!-- P3 -->
+  <div class="screen" id="s3" style="background-image:url('https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=800&q=80')">
+    <div class="pill" data-es="✦ Paso 2 de 3 · Tus intereses" data-en="✦ Step 2 of 3 · Your interests">✦ Paso 2 de 3 · Tus intereses</div>
+    <h2 class="q center" data-es="¿Qué te interesa?" data-en="What interests you?">¿Qué te interesa?</h2>
+    <p class="center sub" data-es="Elige una o varias opciones" data-en="Choose one or more">Elige una o varias opciones</p>
+    <div class="opts col" style="margin-top:14px">
+      <div class="opt row" onclick="toggle(this)"><div class="ic" style="background:linear-gradient(135deg,#7F5AF0,#2CB1BC)"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="6" rx="2" fill="#fff"/><rect x="3" y="15" width="18" height="4" fill="#fff"/><circle cx="7" cy="11" r="2.4" fill="#fff"/></svg></div><span data-es="Alojamiento" data-en="Accommodation">Alojamiento</span></div>
+      <div class="opt row" onclick="toggle(this)"><div class="ic" style="background:linear-gradient(135deg,#FF8E53,#FF4D8D)"><svg viewBox="0 0 24 24"><path d="M7 3v8M9 3v18M15 3c-1 1-2 3-2 5s1 3 2 3v10" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div><span data-es="Gastronomía" data-en="Food & Dining">Gastronomía</span></div>
+      <div class="opt row" onclick="toggle(this)"><div class="ic" style="background:linear-gradient(135deg,#FF4D8D,#7F5AF0)"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6 6.6.5-5 4.3 1.6 6.4L12 16l-6.1 3.2 1.6-6.4-5-4.3 6.6-.5z" fill="#fff"/></svg></div><span data-es="Actividades" data-en="Activities">Actividades</span></div>
+    </div>
+    <div class="spacer"></div>
+    <button class="btn primary" onclick="showReco()"><span data-es="Ver recomendaciones" data-en="See recommendations">Ver recomendaciones</span> →</button>
+  </div>
+
+  <!-- P4 -->
+  <div class="screen" id="s4" style="background-image:url('https://images.unsplash.com/photo-1543349689-9a4d426bee8e?w=800&q=80')">
+    <div class="pill" id="recoPill">✦ Recomendaciones</div>
+    <div id="recoCards"></div>
+    <div class="spacer"></div>
+    <div class="row2">
+      <button class="btn glass" onclick="go('s3')">← <span data-es="Volver" data-en="Back">Volver</span></button>
+      <button class="btn primary" onclick="go('s5')"><span data-es="Finalizar" data-en="Finish">Finalizar</span> →</button>
+    </div>
+  </div>
+
+  <!-- P5 -->
+  <div class="screen" id="s5" style="background-image:url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80')">
+    <div class="pill" data-es="✦ Encuesta de satisfacción" data-en="✦ Satisfaction survey">✦ Encuesta de satisfacción</div>
+    <div class="spacer"></div>
+    <h2 class="q center" data-es="¿Qué tan útiles fueron las recomendaciones?" data-en="How helpful were the recommendations?">¿Qué tan útiles fueron las recomendaciones?</h2>
+    <div class="stars" id="stars"><span class="star" onclick="rate(1)">★</span><span class="star" onclick="rate(2)">★</span><span class="star" onclick="rate(3)">★</span><span class="star" onclick="rate(4)">★</span><span class="star" onclick="rate(5)">★</span></div>
+    <p class="center sub" data-es="1 = Nada útil · 5 = Muy útil" data-en="1 = Not useful · 5 = Very useful">1 = Nada útil · 5 = Muy útil</p>
+    <div class="spacer"></div>
+    <button class="btn aqua" onclick="go('s6')"><span data-es="Enviar" data-en="Submit">Enviar</span> ✓</button>
+  </div>
+
+  <!-- P6 -->
+  <div class="screen" id="s6" style="background-image:url('https://images.unsplash.com/photo-1521295121783-8a321d551ad2?w=800&q=80')">
+    <div class="spacer"></div>
+    <div class="check">✓</div>
+    <h2 class="title-hero" data-es="¡Gracias por usar <span class='grad-text'>TuriPOP</span>!" data-en="Thanks for using <span class='grad-text'>TuriPOP</span>!">¡Gracias por usar <span class="grad-text">TuriPOP</span>!</h2>
+    <p class="center sub" data-es="Buen viaje y disfruta Bogotá ✈" data-en="Have a great trip in Bogotá ✈">Buen viaje y disfruta Bogotá ✈</p>
+    <div class="spacer"></div>
+    <button class="btn primary" onclick="restart()"><span data-es="Volver al inicio" data-en="Back to start">Volver al inicio</span></button>
+  </div>
+
+  <div class="dots" id="dots" style="position:absolute;bottom:12px;left:0;right:0;z-index:3"></div>
+</div></div>
+<div class="base"></div>
+<div class="base2"></div>
+</div>
+
+<script>
+  var lang='es', current='s1';
+  var choice={reason:'tourism'};
+  var order=['s1','s2','s3','s4','s5','s6'];
+
+  var RECO={
+    tourism:{es:'✦ Recomendaciones · Turismo',en:'✦ Recommendations · Tourism',items:[
+      {t_es:'Alojamiento',t_en:'Stay',c:'linear-gradient(135deg,#7F5AF0,#2CB1BC)',n:'Hotel Bogotá Plaza',d_es:'A 15 min · desde $220.000',d_en:'15 min · from $220,000',ic:'bed'},
+      {t_es:'Gastronomía',t_en:'Food',c:'linear-gradient(135deg,#FF8E53,#FF4D8D)',n:'Andrés Carne de Res',d_es:'Comida típica · 20 min',d_en:'Typical food · 20 min',ic:'food'},
+      {t_es:'Actividad',t_en:'Activity',c:'linear-gradient(135deg,#FF4D8D,#7F5AF0)',n:'Monserrate',d_es:'Vista panorámica · 35 min',d_en:'Panoramic view · 35 min',ic:'star'}]},
+    business:{es:'✦ Recomendaciones · Negocios',en:'✦ Recommendations · Business',items:[
+      {t_es:'Alojamiento',t_en:'Stay',c:'linear-gradient(135deg,#7F5AF0,#2CB1BC)',n:'Hotel Click Clack',d_es:'Zona empresarial · 10 min',d_en:'Business area · 10 min',ic:'bed'},
+      {t_es:'Gastronomía',t_en:'Food',c:'linear-gradient(135deg,#FF8E53,#FF4D8D)',n:'Criterión',d_es:'Restaurante ejecutivo · 15 min',d_en:'Executive dining · 15 min',ic:'food'},
+      {t_es:'Actividad',t_en:'Activity',c:'linear-gradient(135deg,#2CB1BC,#7F5AF0)',n:'Ágora Bogotá',d_es:'Centro de convenciones · 12 min',d_en:'Convention center · 12 min',ic:'brief'}]},
+    family:{es:'✦ Recomendaciones · Familia',en:'✦ Recommendations · Family',items:[
+      {t_es:'Alojamiento',t_en:'Stay',c:'linear-gradient(135deg,#7F5AF0,#2CB1BC)',n:'Estelar Suites',d_es:'Apartamentos familiares · 18 min',d_en:'Family suites · 18 min',ic:'bed'},
+      {t_es:'Gastronomía',t_en:'Food',c:'linear-gradient(135deg,#FF8E53,#FF4D8D)',n:'Crepes & Waffles',d_es:'Ideal para niños · 20 min',d_en:'Kid-friendly · 20 min',ic:'food'},
+      {t_es:'Actividad',t_en:'Activity',c:'linear-gradient(135deg,#FF4D8D,#FF8E53)',n:'Maloka / Zoológico',d_es:'Planes en familia · 30 min',d_en:'Family plans · 30 min',ic:'family'}]}
+  };
+  var ICONS={
+    bed:'<svg class="ic" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="6" rx="2" fill="#fff"/><rect x="3" y="15" width="18" height="4" fill="#fff"/><circle cx="7" cy="11" r="2.4" fill="#fff"/></svg>',
+    food:'<svg class="ic" viewBox="0 0 24 24"><path d="M7 3v8M9 3v18M15 3c-1 1-2 3-2 5s1 3 2 3v10" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>',
+    star:'<svg class="ic" viewBox="0 0 24 24"><path d="M12 2l2.9 6 6.6.5-5 4.3 1.6 6.4L12 16l-6.1 3.2 1.6-6.4-5-4.3 6.6-.5z" fill="#fff"/></svg>',
+    brief:'<svg class="ic" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="11" rx="2" fill="#fff"/><rect x="9" y="4" width="6" height="4" rx="1" fill="none" stroke="#fff" stroke-width="2"/></svg>',
+    family:'<svg class="ic" viewBox="0 0 24 24"><circle cx="8" cy="8" r="3" fill="#fff"/><circle cx="16" cy="9" r="2.4" fill="#fff"/><path d="M3 20c0-3 2.5-5 5-5s5 2 5 5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg>'
+  };
+
+  function applyLang(){
+    document.querySelectorAll('[data-es]').forEach(function(el){
+      el.innerHTML = lang==='es'?el.getAttribute('data-es'):el.getAttribute('data-en');
+    });
+    document.getElementById('lb-es').classList.toggle('on',lang==='es');
+    document.getElementById('lb-en').classList.toggle('on',lang==='en');
+    document.documentElement.lang=lang;
+  }
+  function setLang(l){lang=l; applyLang();}
+  function go(id){
+    document.getElementById(current).classList.remove('active');
+    document.getElementById(id).classList.add('active');
+    current=id; updateDots();
+  }
+  function pick(el){el.parentNode.querySelectorAll('.opt').forEach(function(o){o.classList.remove('sel');}); el.classList.add('sel');}
+  function toggle(el){el.classList.toggle('sel');}
+  function showReco(){
+    var data=RECO[choice.reason]||RECO.tourism;
+    document.getElementById('recoPill').textContent=lang==='es'?data.es:data.en;
+    var h='';
+    data.items.forEach(function(it){
+      h+='<div class="card"><div class="thumb" style="background:'+it.c+'">'+ICONS[it.ic]+
+        '</div><div class="body"><div class="tagn">'+(lang==='es'?it.t_es:it.t_en)+'</div><h3>'+it.n+
+        '</h3><p>'+(lang==='es'?it.d_es:it.d_en)+'</p><span class="more">'+(lang==='es'?'Ver más':'See more')+'</span></div></div>';
+    });
+    document.getElementById('recoCards').innerHTML=h; go('s4');
+  }
+  function rate(n){document.querySelectorAll('#stars .star').forEach(function(s,i){s.classList.toggle('on',i<n);});}
+  function restart(){choice={reason:'tourism'}; document.querySelectorAll('.opt').forEach(function(o){o.classList.remove('sel');}); rate(0); go('s1');}
+  function updateDots(){
+    var i=order.indexOf(current), html='';
+    for(var k=0;k<order.length;k++){html+='<div class="dot'+(k===i?' on':'')+'"></div>';}
+    document.getElementById('dots').innerHTML=html;
+  }
+  applyLang(); updateDots();
+</script>
+</body>
+</html>
