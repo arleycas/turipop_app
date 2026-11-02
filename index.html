@@ -93,12 +93,57 @@
   .btn.primary:hover{box-shadow:0 14px 40px rgba(255,77,141,.65);}
   .btn.glass{background:var(--glass); border:1px solid var(--stroke); backdrop-filter:blur(6px);}
   .btn.aqua{background:linear-gradient(90deg,var(--g1),var(--g2)); box-shadow:0 12px 30px rgba(44,177,188,.4);}
+  .btn:disabled{opacity:.38; cursor:not-allowed; box-shadow:none; filter:grayscale(.4);}
+  .btn:disabled .shine{display:none;}
+  .hint{color:rgba(255,255,255,.55); font-size:14px; text-align:center; margin-top:12px; min-height:18px;}
+  .opt:focus-visible,.btn:focus-visible,.langbar button:focus-visible{outline:3px solid #FFD166; outline-offset:3px;}
+  .opt .money{font-size:28px; font-weight:800; letter-spacing:1px;}
+  .opt small{font-size:13px; font-weight:400; opacity:.75;}
+  .card.tips .body ul{list-style:none; color:rgba(255,255,255,.85); font-size:15px;}
+  .card.tips .body li{margin:6px 0; padding-left:18px; position:relative;}
+  .card.tips .body li::before{content:'•'; position:absolute; left:2px; color:var(--g3);}
+  .card .meta{font-size:14px; font-weight:700; color:#FFD166; margin-bottom:10px;}
+  .card.safety .body li::before{color:#FF4D8D;}
+  /* ficha del lugar: duración, precio y horario */
+  .facts{list-style:none; margin:0 0 12px; padding:10px 12px; border-radius:14px;
+    background:rgba(0,0,0,.22); border:1px solid rgba(255,255,255,.12); font-size:14px; color:rgba(255,255,255,.88);}
+  .facts li{display:flex; gap:8px; align-items:baseline; margin:3px 0; line-height:1.35;}
+  .facts b{font-weight:700; white-space:nowrap;}
+  h3.sec{color:#fff; font-size:20px; font-weight:800; margin:22px 4px 10px;}
+  h3.sec span{font-size:14px; font-weight:600; opacity:.65;}
+  .disclaimer{color:rgba(255,255,255,.55); font-size:13px; text-align:center; margin:4px 0 8px;}
+  @media (max-width:600px){ .facts{font-size:12.5px; padding:8px 10px;} h3.sec{font-size:17px;} }
+  .card .meta .sos{color:#fff; background:#FF4D8D; padding:2px 12px; border-radius:10px; text-decoration:none; font-size:16px;}
+  .card .meta .sos:focus-visible{outline:3px solid #FFD166; outline-offset:2px;}
+  /* tarjeta de clima */
+  .card.wx .thumb .wx-ic{font-size:50px; line-height:1;}
+  .wx-days{display:flex; gap:8px; margin:4px 0 10px;}
+  .wx-day{flex:1; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18); border-radius:14px;
+    padding:8px 4px; text-align:center; font-size:14px; line-height:1.35;}
+  .wx-day b{display:block; font-size:13px; opacity:.85;}
+  .wx-day .e{font-size:22px; display:block;}
+  .wx-day .r{color:#9fd8ff; font-size:12px;}
+  .card.wx ul{list-style:none; font-size:15px; color:rgba(255,255,255,.85); margin-bottom:6px;}
+  .card.wx li{margin:4px 0;}
+  .wx-src{font-size:12px !important; color:rgba(255,255,255,.5) !important; margin:0 !important;}
+  .wx-loading{animation:pulse 1.4s ease-in-out infinite;}
   .btn .shine{position:absolute; top:0; left:-60%; width:40%; height:100%;
     background:linear-gradient(120deg,transparent,rgba(255,255,255,.5),transparent); transform:skewX(-20deg); animation:shine 3.5s infinite;}
   @keyframes shine{0%{left:-60%;}60%,100%{left:140%;}}
 
   /* opciones glass */
   .opts{display:flex; gap:14px; flex-wrap:wrap;}
+  .opts.two .opt{flex:1 1 calc(50% - 7px);}
+  /* listas desplegables país / ciudad */
+  .selrow{display:flex; flex-direction:column; gap:12px;}
+  .field{flex:1; display:flex; flex-direction:column; gap:8px; color:rgba(255,255,255,.75); font-size:15px; font-weight:600; min-width:0;}
+  .field select{appearance:none; -webkit-appearance:none; width:100%; font-family:inherit; font-size:19px; font-weight:600; color:#fff;
+    background:var(--glass) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' stroke='white' stroke-width='2.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 16px center/20px;
+    border:2px solid var(--stroke); border-radius:18px; padding:18px 46px 18px 18px; cursor:pointer; backdrop-filter:blur(6px); transition:.2s;}
+  .field select:focus-visible{outline:3px solid #FFD166; outline-offset:3px;}
+  .field select.filled{border-color:#fff; background-color:rgba(255,77,141,.28);}
+  .field select:disabled{opacity:.45; cursor:not-allowed;}
+  .field select option{color:var(--ink); background:#fff;}
   .opts.col{flex-direction:column;}
   .opt{flex:1; min-width:120px; background:var(--glass); border:2px solid var(--stroke); border-radius:22px;
     padding:20px 12px; text-align:center; cursor:pointer; color:#fff; font-weight:600; font-size:18px;
@@ -139,9 +184,9 @@
     color:#fff;font-size:74px; box-shadow:0 16px 44px rgba(44,177,188,.6); animation:pop .5s ease both;}
   @keyframes pop{from{transform:scale(.4);opacity:0;}to{transform:scale(1);opacity:1;}}
   .row2{display:flex; gap:16px;} .row2 .btn{margin-top:0;}
-  .langbar{display:flex; gap:12px; justify-content:center; margin-top:8px;}
+  .langbar{display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:8px;}
   .langbar button{background:var(--glass); border:1px solid var(--stroke); color:#fff; border-radius:24px;
-    padding:14px 32px; font-family:inherit; font-weight:600; font-size:17px; cursor:pointer; backdrop-filter:blur(6px);}
+    padding:14px 26px; font-family:inherit; font-weight:600; font-size:17px; cursor:pointer; backdrop-filter:blur(6px);}
   .langbar button.on{background:linear-gradient(90deg,var(--g3),var(--g4)); border-color:transparent;}
   .dots{display:flex; gap:7px; justify-content:center; margin-top:16px;}
   .dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.3);}
@@ -194,6 +239,8 @@
     .card .body h3{font-size:19px;}
     .card .body p{font-size:14px; margin-bottom:10px;}
     .card .body .more{font-size:13px; padding:6px 16px;}
+    .wx-days{gap:5px;} .wx-day{font-size:12px; padding:6px 2px;} .wx-day .e{font-size:18px;}
+    .card.wx .thumb .wx-ic{font-size:38px;}
 
     .biglogo{width:104px; height:104px; border-radius:28px; margin:18px 0 10px;}
     .biglogo svg{width:58px; height:58px;}
@@ -201,7 +248,10 @@
     .stars{gap:12px; margin:24px 0;}
     .star{font-size:46px;}
 
-    .langbar button{padding:11px 24px; font-size:15px;}
+    .langbar{gap:8px;}
+    .langbar button{padding:10px 16px; font-size:14px;}
+    .selrow{flex-direction:column; gap:12px;}
+    .field select{font-size:16px; padding:14px 42px 14px 14px; border-radius:14px;}
     .row2{gap:12px;}
     .dots{bottom:10px;}
   }
@@ -218,50 +268,124 @@
   <div class="screen active" id="s1" style="background-image:url('https://images.unsplash.com/photo-1569154941061-e231b4725ef1?w=800&q=80')">
     <div class="brand"><div class="logo"><svg viewBox="0 0 24 24"><path d="M12 2C8.1 2 5 5.1 5 9c0 5 7 13 7 13s7-8 7-13c0-3.9-3.1-7-7-7z" fill="#fff"/><circle cx="12" cy="9" r="2.6" fill="#FF4D8D"/></svg></div><div><h1>TuriPOP</h1><p>Aeropuerto El Dorado</p></div></div>
     <div class="biglogo"><svg viewBox="0 0 24 24"><path d="M12 2C8.1 2 5 5.1 5 9c0 5 7 13 7 13s7-8 7-13c0-3.9-3.1-7-7-7z" fill="#fff"/><circle cx="12" cy="9" r="2.6" fill="#FF4D8D"/></svg></div>
-    <h2 class="title-hero" data-es="Tu viaje <span class='grad-text'>empieza aquí</span>" data-en="Your trip <span class='grad-text'>starts here</span>">Tu viaje <span class="grad-text">empieza aquí</span></h2>
-    <p class="center sub" data-es="Guía turística inteligente y personalizada" data-en="Smart, personalized tourist guide">Guía turística inteligente y personalizada</p>
+    <h2 class="title-hero" data-es="Tu viaje <span class='grad-text'>empieza aquí</span>" data-en="Your trip <span class='grad-text'>starts here</span>" data-pt="Sua viagem <span class='grad-text'>começa aqui</span>">Tu viaje <span class="grad-text">empieza aquí</span></h2>
+    <p class="center sub" data-es="Guía turística inteligente y personalizada" data-en="Smart, personalized tourist guide" data-pt="Guia turístico inteligente e personalizado">Guía turística inteligente y personalizada</p>
     <div class="spacer"></div>
-    <p class="center sub" data-es="Elige tu idioma" data-en="Choose your language" style="margin-bottom:4px">Elige tu idioma</p>
-    <div class="langbar"><button id="lb-es" class="on" onclick="setLang('es')">Español</button><button id="lb-en" onclick="setLang('en')">English</button></div>
-    <button class="btn primary" onclick="go('s2')"><span class="shine"></span><span data-es="Comenzar" data-en="Start">Comenzar</span> →</button>
+    <p class="center sub" data-es="Elige tu idioma" data-en="Choose your language" data-pt="Escolha seu idioma" style="margin-bottom:4px">Elige tu idioma</p>
+    <div class="langbar"><button id="lb-es" class="on" onclick="setLang('es')" lang="es">Español</button><button id="lb-en" onclick="setLang('en')" lang="en">English</button><button id="lb-pt" onclick="setLang('pt')" lang="pt">Português</button></div>
+    <button class="btn primary" onclick="go('sR')"><span class="shine"></span><span data-es="Comenzar" data-en="Start" data-pt="Começar">Comenzar</span> →</button>
+  </div>
+
+  <!-- P1b · Ruta -->
+  <div class="screen" id="sR" style="background-image:url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80')">
+    <div class="pill" data-es="✦ Paso 1 de 5 · Tu ruta" data-en="✦ Step 1 of 5 · Your route" data-pt="✦ Passo 1 de 5 · Sua rota">✦ Paso 1 de 5 · Tu ruta</div>
+    <h2 class="q" data-es="¿De dónde vienes?" data-en="Where are you from?" data-pt="De onde você vem?">¿De dónde vienes?</h2>
+    <div class="selrow">
+      <label class="field"><span data-es="País" data-en="Country" data-pt="País">País</span>
+        <select id="originCountry" onchange="pickCountry('origin',this.value)"></select></label>
+      <label class="field"><span data-es="Ciudad" data-en="City" data-pt="Cidade">Ciudad</span>
+        <select id="originCity" onchange="pickCity('origin',this.value)" disabled></select></label>
+    </div>
+    <h2 class="q" data-es="¿A dónde vas?" data-en="Where are you going?" data-pt="Para onde você vai?">¿A dónde vas?</h2>
+    <div class="selrow">
+      <label class="field"><span data-es="País" data-en="Country" data-pt="País">País</span>
+        <select id="destCountry" onchange="pickCountry('dest',this.value)"></select></label>
+      <label class="field"><span data-es="Ciudad" data-en="City" data-pt="Cidade">Ciudad</span>
+        <select id="destCity" onchange="pickCity('dest',this.value)"></select></label>
+    </div>
+    <p class="sub" style="margin-top:12px; font-size:15px" data-es="Por ahora tenemos recomendaciones para destinos en Colombia." data-en="For now we have recommendations for destinations in Colombia." data-pt="Por enquanto temos recomendações para destinos na Colômbia.">Por ahora tenemos recomendaciones para destinos en Colombia.</p>
+    <div class="spacer"></div>
+    <p class="hint" data-es="Elige país y ciudad de origen y de destino" data-en="Choose origin and destination country and city" data-pt="Escolha país e cidade de origem e de destino">Elige país y ciudad de origen y de destino</p>
+    <div class="row2">
+      <button class="btn glass" onclick="go('s1')">← <span data-es="Volver" data-en="Back" data-pt="Voltar">Volver</span></button>
+      <button class="btn primary" data-next onclick="go('s2')"><span data-es="Continuar" data-en="Continue" data-pt="Continuar">Continuar</span> →</button>
+    </div>
   </div>
 
   <!-- P2 -->
   <div class="screen" id="s2" style="background-image:url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80')">
-    <div class="pill" data-es="✦ Paso 1 de 3 · Sobre tu viaje" data-en="✦ Step 1 of 3 · About your trip">✦ Paso 1 de 3 · Sobre tu viaje</div>
-    <h2 class="q" data-es="¿De dónde vienes?" data-en="Where are you from?">¿De dónde vienes?</h2>
+    <div class="pill" data-es="✦ Paso 2 de 5 · Sobre tu viaje" data-en="✦ Step 2 of 5 · About your trip" data-pt="✦ Passo 2 de 5 · Sobre sua viagem">✦ Paso 2 de 5 · Sobre tu viaje</div>
+    <h2 class="q" data-es="¿Motivo del viaje?" data-en="Purpose of trip?" data-pt="Motivo da viagem?">¿Motivo del viaje?</h2>
     <div class="opts">
-      <div class="opt" onclick="pick(this)"><div class="ic" style="background:linear-gradient(135deg,#FF8E53,#FF4D8D)"><svg viewBox="0 0 24 24"><path d="M5 3v18M5 4h12l-2 3 2 3H5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span data-es="Nacional" data-en="Domestic">Nacional</span></div>
-      <div class="opt" onclick="pick(this)"><div class="ic" style="background:linear-gradient(135deg,#7F5AF0,#2CB1BC)"><svg viewBox="0 0 24 24"><path d="M12 2a6 6 0 00-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 00-6-6z" fill="#fff"/><circle cx="12" cy="8" r="2" fill="#7F5AF0"/></svg></div><span data-es="Internacional" data-en="International">Internacional</span></div>
+      <div class="opt" data-group="reason" data-val="tourism" onclick="pick(this)"><div class="ic" style="background:linear-gradient(135deg,#FF8E53,#FF4D8D)"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6 6.6.5-5 4.3 1.6 6.4L12 16l-6.1 3.2 1.6-6.4-5-4.3 6.6-.5z" fill="#fff"/></svg></div><span data-es="Turismo" data-en="Tourism" data-pt="Turismo">Turismo</span></div>
+      <div class="opt" data-group="reason" data-val="business" onclick="pick(this)"><div class="ic" style="background:linear-gradient(135deg,#2CB1BC,#7F5AF0)"><svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="11" rx="2" fill="#fff"/><rect x="9" y="4" width="6" height="4" rx="1" fill="none" stroke="#fff" stroke-width="2"/></svg></div><span data-es="Negocios" data-en="Business" data-pt="Negócios">Negocios</span></div>
+      <div class="opt" data-group="reason" data-val="family" onclick="pick(this)"><div class="ic" style="background:linear-gradient(135deg,#FF4D8D,#7F5AF0)"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3" fill="#fff"/><circle cx="16" cy="9" r="2.4" fill="#fff"/><path d="M3 20c0-3 2.5-5 5-5s5 2 5 5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div><span data-es="Familia" data-en="Family" data-pt="Família">Familia</span></div>
     </div>
-    <h2 class="q" data-es="¿Motivo del viaje?" data-en="Purpose of trip?">¿Motivo del viaje?</h2>
+    <h2 class="q" data-es="¿Cuánto tiempo tienes?" data-en="How much time?" data-pt="Quanto tempo você tem?">¿Cuánto tiempo tienes?</h2>
     <div class="opts">
-      <div class="opt" onclick="pick(this);choice.reason='tourism'"><div class="ic" style="background:linear-gradient(135deg,#FF8E53,#FF4D8D)"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6 6.6.5-5 4.3 1.6 6.4L12 16l-6.1 3.2 1.6-6.4-5-4.3 6.6-.5z" fill="#fff"/></svg></div><span data-es="Turismo" data-en="Tourism">Turismo</span></div>
-      <div class="opt" onclick="pick(this);choice.reason='business'"><div class="ic" style="background:linear-gradient(135deg,#2CB1BC,#7F5AF0)"><svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="11" rx="2" fill="#fff"/><rect x="9" y="4" width="6" height="4" rx="1" fill="none" stroke="#fff" stroke-width="2"/></svg></div><span data-es="Negocios" data-en="Business">Negocios</span></div>
-      <div class="opt" onclick="pick(this);choice.reason='family'"><div class="ic" style="background:linear-gradient(135deg,#FF4D8D,#7F5AF0)"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3" fill="#fff"/><circle cx="16" cy="9" r="2.4" fill="#fff"/><path d="M3 20c0-3 2.5-5 5-5s5 2 5 5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div><span data-es="Familia" data-en="Family">Familia</span></div>
-    </div>
-    <h2 class="q" data-es="¿Cuánto tiempo tienes?" data-en="How much time?">¿Cuánto tiempo tienes?</h2>
-    <div class="opts">
-      <div class="opt" onclick="pick(this)"><span data-es="&lt; 1 día" data-en="&lt; 1 day">&lt; 1 día</span></div>
-      <div class="opt" onclick="pick(this)"><span data-es="1-3 días" data-en="1-3 days">1-3 días</span></div>
-      <div class="opt" onclick="pick(this)"><span data-es="+3 días" data-en="+3 days">+3 días</span></div>
+      <div class="opt" data-group="duration" data-val="short" onclick="pick(this)"><span data-es="&lt; 1 día" data-en="&lt; 1 day" data-pt="&lt; 1 dia">&lt; 1 día</span></div>
+      <div class="opt" data-group="duration" data-val="mid" onclick="pick(this)"><span data-es="1-3 días" data-en="1-3 days" data-pt="1-3 dias">1-3 días</span></div>
+      <div class="opt" data-group="duration" data-val="long" onclick="pick(this)"><span data-es="+3 días" data-en="+3 days" data-pt="+3 dias">+3 días</span></div>
     </div>
     <div class="spacer"></div>
-    <button class="btn primary" onclick="go('s3')"><span data-es="Continuar" data-en="Continue">Continuar</span> →</button>
+    <p class="hint" data-es="Responde todas las preguntas para continuar" data-en="Answer all questions to continue" data-pt="Responda todas as perguntas para continuar">Responde todas las preguntas para continuar</p>
+    <div class="row2">
+      <button class="btn glass" onclick="go('sR')">← <span data-es="Volver" data-en="Back" data-pt="Voltar">Volver</span></button>
+      <button class="btn primary" data-next onclick="go('sP')"><span data-es="Continuar" data-en="Continue" data-pt="Continuar">Continuar</span> →</button>
+    </div>
+  </div>
+
+  <!-- P2b · Perfil -->
+  <div class="screen" id="sP" style="background-image:url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80')">
+    <div class="pill" data-es="✦ Paso 3 de 5 · Tu perfil" data-en="✦ Step 3 of 5 · Your profile" data-pt="✦ Passo 3 de 5 · Seu perfil">✦ Paso 3 de 5 · Tu perfil</div>
+    <h2 class="q" data-es="¿Con quién viajas?" data-en="Who are you traveling with?" data-pt="Com quem você viaja?">¿Con quién viajas?</h2>
+    <div class="opts two">
+      <div class="opt" data-group="company" data-val="solo" onclick="pick(this)"><div class="ic" style="background:linear-gradient(135deg,#7F5AF0,#2CB1BC)"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="#fff"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7z" fill="#fff"/></svg></div><span data-es="Solo" data-en="Solo" data-pt="Sozinho">Solo</span></div>
+      <div class="opt" data-group="company" data-val="couple" onclick="pick(this)"><div class="ic" style="background:linear-gradient(135deg,#FF8E53,#FF4D8D)"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 018-2.8A4.5 4.5 0 0120 10c0 5.8-8 11-8 11z" fill="#fff"/></svg></div><span data-es="Pareja" data-en="Couple" data-pt="Casal">Pareja</span></div>
+      <div class="opt" data-group="company" data-val="family" onclick="pick(this)"><div class="ic" style="background:linear-gradient(135deg,#FF4D8D,#7F5AF0)"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3" fill="#fff"/><circle cx="16" cy="9" r="2.4" fill="#fff"/><path d="M3 20c0-3 2.5-5 5-5s5 2 5 5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div><span data-es="Familia con niños" data-en="Family with kids" data-pt="Família com crianças">Familia con niños</span></div>
+      <div class="opt" data-group="company" data-val="friends" onclick="pick(this)"><div class="ic" style="background:linear-gradient(135deg,#2CB1BC,#7F5AF0)"><svg viewBox="0 0 24 24"><circle cx="6" cy="9" r="2.5" fill="#fff"/><circle cx="12" cy="7" r="3" fill="#fff"/><circle cx="18" cy="9" r="2.5" fill="#fff"/><path d="M7 20c0-3.5 2.2-6 5-6s5 2.5 5 6M2 20c0-3 1.8-5 4-5M22 20c0-3-1.8-5-4-5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div><span data-es="Amigos" data-en="Friends" data-pt="Amigos">Amigos</span></div>
+    </div>
+    <h2 class="q" data-es="¿Cuál es tu presupuesto?" data-en="What's your budget?" data-pt="Qual é o seu orçamento?">¿Cuál es tu presupuesto?</h2>
+    <div class="opts">
+      <div class="opt" data-group="budget" data-val="1" onclick="pick(this)"><span class="money">$</span><span data-es="Económico" data-en="Budget" data-pt="Econômico">Económico</span></div>
+      <div class="opt" data-group="budget" data-val="2" onclick="pick(this)"><span class="money">$$</span><span data-es="Medio" data-en="Mid-range" data-pt="Médio">Medio</span></div>
+      <div class="opt" data-group="budget" data-val="3" onclick="pick(this)"><span class="money">$$$</span><span data-es="Premium" data-en="Premium" data-pt="Premium">Premium</span></div>
+    </div>
+    <div class="spacer"></div>
+    <p class="hint" data-es="Responde todas las preguntas para continuar" data-en="Answer all questions to continue" data-pt="Responda todas as perguntas para continuar">Responde todas las preguntas para continuar</p>
+    <div class="row2">
+      <button class="btn glass" onclick="go('s2')">← <span data-es="Volver" data-en="Back" data-pt="Voltar">Volver</span></button>
+      <button class="btn primary" data-next onclick="go('sD')"><span data-es="Continuar" data-en="Continue" data-pt="Continuar">Continuar</span> →</button>
+    </div>
+  </div>
+
+  <!-- P2c · Alimentación -->
+  <div class="screen" id="sD" style="background-image:url('https://images.unsplash.com/photo-1543349689-9a4d426bee8e?w=800&q=80')">
+    <div class="pill" data-es="✦ Paso 4 de 5 · Alimentación" data-en="✦ Step 4 of 5 · Dietary needs" data-pt="✦ Passo 4 de 5 · Alimentação">✦ Paso 4 de 5 · Alimentación</div>
+    <h2 class="q center" data-es="¿Tienes restricciones de comida?" data-en="Any dietary restrictions?" data-pt="Você tem restrições alimentares?">¿Tienes restricciones de comida?</h2>
+    <p class="center sub" data-es="Elige una o varias opciones" data-en="Choose one or more" data-pt="Escolha uma ou várias opções">Elige una o varias opciones</p>
+    <div class="opts col" style="margin-top:14px">
+      <div class="opt row" data-group="diet" data-val="none" onclick="toggle(this)"><div class="ic" style="background:linear-gradient(135deg,#7F5AF0,#2CB1BC)"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span data-es="Ninguna" data-en="None" data-pt="Nenhuma">Ninguna</span></div>
+      <div class="opt row" data-group="diet" data-val="vegetarian" onclick="toggle(this)"><div class="ic" style="background:linear-gradient(135deg,#2CB1BC,#7F5AF0)"><svg viewBox="0 0 24 24"><path d="M5 19C5 10 11 5 20 4c-1 9-6 15-15 15z" fill="#fff"/><path d="M5 19l8-8" stroke="#2CB1BC" stroke-width="1.8" stroke-linecap="round"/></svg></div><span data-es="Vegetariano" data-en="Vegetarian" data-pt="Vegetariano">Vegetariano</span></div>
+      <div class="opt row" data-group="diet" data-val="vegan" onclick="toggle(this)"><div class="ic" style="background:linear-gradient(135deg,#FF8E53,#FF4D8D)"><svg viewBox="0 0 24 24"><path d="M12 21v-9" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M12 12C12 7 8 5 4 5c0 4 3 7 8 7zM12 10c0-4 3-6 8-6 0 4-3 6-8 6z" fill="#fff"/></svg></div><span data-es="Vegano" data-en="Vegan" data-pt="Vegano">Vegano</span></div>
+      <div class="opt row" data-group="diet" data-val="glutenfree" onclick="toggle(this)"><div class="ic" style="background:linear-gradient(135deg,#FF4D8D,#7F5AF0)"><svg viewBox="0 0 24 24"><path d="M12 21V8" stroke="#fff" stroke-width="2" stroke-linecap="round"/><ellipse cx="9.5" cy="10" rx="2" ry="3" fill="#fff"/><ellipse cx="14.5" cy="10" rx="2" ry="3" fill="#fff"/><ellipse cx="12" cy="5" rx="2" ry="3" fill="#fff"/><path d="M4 4l16 16" stroke="#FFD166" stroke-width="2.4" stroke-linecap="round"/></svg></div><span data-es="Sin gluten" data-en="Gluten-free" data-pt="Sem glúten">Sin gluten</span></div>
+      <div class="opt row" data-group="diet" data-val="halal" onclick="toggle(this)"><div class="ic" style="background:linear-gradient(135deg,#FF8E53,#7F5AF0)"><svg viewBox="0 0 24 24"><path d="M14 3a9 9 0 1 0 7 14A7 7 0 0 1 14 3z" fill="#fff"/></svg></div><span data-es="Halal" data-en="Halal" data-pt="Halal">Halal</span></div>
+    </div>
+    <div class="spacer"></div>
+    <p class="hint" data-es="Elige al menos una opción para continuar" data-en="Choose at least one option to continue" data-pt="Escolha pelo menos uma opção para continuar">Elige al menos una opción para continuar</p>
+    <div class="row2">
+      <button class="btn glass" onclick="go('sP')">← <span data-es="Volver" data-en="Back" data-pt="Voltar">Volver</span></button>
+      <button class="btn primary" data-next onclick="go('s3')"><span data-es="Continuar" data-en="Continue" data-pt="Continuar">Continuar</span> →</button>
+    </div>
   </div>
 
   <!-- P3 -->
   <div class="screen" id="s3" style="background-image:url('https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=800&q=80')">
-    <div class="pill" data-es="✦ Paso 2 de 3 · Tus intereses" data-en="✦ Step 2 of 3 · Your interests">✦ Paso 2 de 3 · Tus intereses</div>
-    <h2 class="q center" data-es="¿Qué te interesa?" data-en="What interests you?">¿Qué te interesa?</h2>
-    <p class="center sub" data-es="Elige una o varias opciones" data-en="Choose one or more">Elige una o varias opciones</p>
+    <div class="pill" data-es="✦ Paso 5 de 5 · Tus intereses" data-en="✦ Step 5 of 5 · Your interests" data-pt="✦ Passo 5 de 5 · Seus interesses">✦ Paso 5 de 5 · Tus intereses</div>
+    <h2 class="q center" data-es="¿Qué te interesa?" data-en="What interests you?" data-pt="O que te interessa?">¿Qué te interesa?</h2>
+    <p class="center sub" data-es="Elige una o varias opciones" data-en="Choose one or more" data-pt="Escolha uma ou várias opções">Elige una o varias opciones</p>
     <div class="opts col" style="margin-top:14px">
-      <div class="opt row" onclick="toggle(this)"><div class="ic" style="background:linear-gradient(135deg,#7F5AF0,#2CB1BC)"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="6" rx="2" fill="#fff"/><rect x="3" y="15" width="18" height="4" fill="#fff"/><circle cx="7" cy="11" r="2.4" fill="#fff"/></svg></div><span data-es="Alojamiento" data-en="Accommodation">Alojamiento</span></div>
-      <div class="opt row" onclick="toggle(this)"><div class="ic" style="background:linear-gradient(135deg,#FF8E53,#FF4D8D)"><svg viewBox="0 0 24 24"><path d="M7 3v8M9 3v18M15 3c-1 1-2 3-2 5s1 3 2 3v10" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div><span data-es="Gastronomía" data-en="Food & Dining">Gastronomía</span></div>
-      <div class="opt row" onclick="toggle(this)"><div class="ic" style="background:linear-gradient(135deg,#FF4D8D,#7F5AF0)"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6 6.6.5-5 4.3 1.6 6.4L12 16l-6.1 3.2 1.6-6.4-5-4.3 6.6-.5z" fill="#fff"/></svg></div><span data-es="Actividades" data-en="Activities">Actividades</span></div>
+      <div class="opt row" data-group="interests" data-val="stay" onclick="toggle(this)"><div class="ic" style="background:linear-gradient(135deg,#7F5AF0,#2CB1BC)"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="6" rx="2" fill="#fff"/><rect x="3" y="15" width="18" height="4" fill="#fff"/><circle cx="7" cy="11" r="2.4" fill="#fff"/></svg></div><span data-es="Alojamiento" data-en="Accommodation" data-pt="Hospedagem">Alojamiento</span></div>
+      <div class="opt row" data-group="interests" data-val="food" onclick="toggle(this)"><div class="ic" style="background:linear-gradient(135deg,#FF8E53,#FF4D8D)"><svg viewBox="0 0 24 24"><path d="M7 3v8M9 3v18M15 3c-1 1-2 3-2 5s1 3 2 3v10" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div><span data-es="Gastronomía" data-en="Food & Dining" data-pt="Gastronomia">Gastronomía</span></div>
+      <div class="opt row" data-group="interests" data-val="activity" onclick="toggle(this)"><div class="ic" style="background:linear-gradient(135deg,#FF4D8D,#7F5AF0)"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6 6.6.5-5 4.3 1.6 6.4L12 16l-6.1 3.2 1.6-6.4-5-4.3 6.6-.5z" fill="#fff"/></svg></div><span data-es="Cultura y paseos" data-en="Sightseeing" data-pt="Cultura e passeios">Cultura y paseos</span></div>
+      <div class="opt row" data-group="interests" data-val="fun" onclick="toggle(this)"><div class="ic" style="background:linear-gradient(135deg,#FFB547,#FF4D8D)"><svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13" stroke="#fff" stroke-width="2" fill="none" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="2.6" fill="#fff"/><circle cx="17.5" cy="16" r="2.6" fill="#fff"/></svg></div><span data-es="Entretenimiento &lt;small&gt;· rumba, shows, parques, aventura&lt;/small&gt;" data-en="Entertainment &lt;small&gt;· nightlife, shows, parks, adventure&lt;/small&gt;" data-pt="Entretenimento &lt;small&gt;· baladas, shows, parques, aventura&lt;/small&gt;">Entretenimiento <small>· rumba, shows, parques, aventura</small></span></div>
     </div>
     <div class="spacer"></div>
-    <button class="btn primary" onclick="showReco()"><span data-es="Ver recomendaciones" data-en="See recommendations">Ver recomendaciones</span> →</button>
+    <p class="hint" data-es="Elige al menos un interés para continuar" data-en="Choose at least one interest to continue" data-pt="Escolha pelo menos um interesse para continuar">Elige al menos un interés para continuar</p>
+    <div class="row2">
+      <button class="btn glass" onclick="go('sD')">← <span data-es="Volver" data-en="Back" data-pt="Voltar">Volver</span></button>
+      <button class="btn primary" data-next onclick="showReco()"><span data-es="Ver recomendaciones" data-en="See recommendations" data-pt="Ver recomendações">Ver recomendaciones</span> →</button>
+    </div>
   </div>
 
   <!-- P4 -->
@@ -270,30 +394,30 @@
     <div id="recoCards"></div>
     <div class="spacer"></div>
     <div class="row2">
-      <button class="btn glass" onclick="go('s3')">← <span data-es="Volver" data-en="Back">Volver</span></button>
-      <button class="btn primary" onclick="go('s5')"><span data-es="Finalizar" data-en="Finish">Finalizar</span> →</button>
+      <button class="btn glass" onclick="go('s3')">← <span data-es="Volver" data-en="Back" data-pt="Voltar">Volver</span></button>
+      <button class="btn primary" onclick="go('s5')"><span data-es="Finalizar" data-en="Finish" data-pt="Finalizar">Finalizar</span> →</button>
     </div>
   </div>
 
   <!-- P5 -->
   <div class="screen" id="s5" style="background-image:url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80')">
-    <div class="pill" data-es="✦ Encuesta de satisfacción" data-en="✦ Satisfaction survey">✦ Encuesta de satisfacción</div>
+    <div class="pill" data-es="✦ Encuesta de satisfacción" data-en="✦ Satisfaction survey" data-pt="✦ Pesquisa de satisfação">✦ Encuesta de satisfacción</div>
     <div class="spacer"></div>
-    <h2 class="q center" data-es="¿Qué tan útiles fueron las recomendaciones?" data-en="How helpful were the recommendations?">¿Qué tan útiles fueron las recomendaciones?</h2>
+    <h2 class="q center" data-es="¿Qué tan útiles fueron las recomendaciones?" data-en="How helpful were the recommendations?" data-pt="Quão úteis foram as recomendações?">¿Qué tan útiles fueron las recomendaciones?</h2>
     <div class="stars" id="stars"><span class="star" onclick="rate(1)">★</span><span class="star" onclick="rate(2)">★</span><span class="star" onclick="rate(3)">★</span><span class="star" onclick="rate(4)">★</span><span class="star" onclick="rate(5)">★</span></div>
-    <p class="center sub" data-es="1 = Nada útil · 5 = Muy útil" data-en="1 = Not useful · 5 = Very useful">1 = Nada útil · 5 = Muy útil</p>
+    <p class="center sub" data-es="1 = Nada útil · 5 = Muy útil" data-en="1 = Not useful · 5 = Very useful" data-pt="1 = Nada útil · 5 = Muito útil">1 = Nada útil · 5 = Muy útil</p>
     <div class="spacer"></div>
-    <button class="btn aqua" onclick="go('s6')"><span data-es="Enviar" data-en="Submit">Enviar</span> ✓</button>
+    <button class="btn aqua" onclick="go('s6')"><span data-es="Enviar" data-en="Submit" data-pt="Enviar">Enviar</span> ✓</button>
   </div>
 
   <!-- P6 -->
   <div class="screen" id="s6" style="background-image:url('https://images.unsplash.com/photo-1521295121783-8a321d551ad2?w=800&q=80')">
     <div class="spacer"></div>
     <div class="check">✓</div>
-    <h2 class="title-hero" data-es="¡Gracias por usar <span class='grad-text'>TuriPOP</span>!" data-en="Thanks for using <span class='grad-text'>TuriPOP</span>!">¡Gracias por usar <span class="grad-text">TuriPOP</span>!</h2>
-    <p class="center sub" data-es="Buen viaje y disfruta Bogotá ✈" data-en="Have a great trip in Bogotá ✈">Buen viaje y disfruta Bogotá ✈</p>
+    <h2 class="title-hero" data-es="¡Gracias por usar <span class='grad-text'>TuriPOP</span>!" data-en="Thanks for using <span class='grad-text'>TuriPOP</span>!" data-pt="Obrigado por usar o <span class='grad-text'>TuriPOP</span>!">¡Gracias por usar <span class="grad-text">TuriPOP</span>!</h2>
+    <p class="center sub" data-es="Buen viaje y disfruta {city} ✈" data-en="Have a great trip in {city} ✈" data-pt="Boa viagem e aproveite {city} ✈">Buen viaje y disfruta Colombia ✈</p>
     <div class="spacer"></div>
-    <button class="btn primary" onclick="restart()"><span data-es="Volver al inicio" data-en="Back to start">Volver al inicio</span></button>
+    <button class="btn primary" onclick="restart()"><span data-es="Volver al inicio" data-en="Back to start" data-pt="Voltar ao início">Volver al inicio</span></button>
   </div>
 
   <div class="dots" id="dots" style="position:absolute;bottom:12px;left:0;right:0;z-index:3"></div>
@@ -302,68 +426,222 @@
 <div class="base2"></div>
 </div>
 
+<script src="turipop-logic.js"></script>
 <script>
+  var T=window.TuriLogic;
   var lang='es', current='s1';
-  var choice={reason:'tourism'};
-  var order=['s1','s2','s3','s4','s5','s6'];
+  var choice=T.emptyChoice();
+  var order=['s1','sR','s2','sP','sD','s3','s4','s5','s6'];
+  /* pantalla -> paso que se valida antes de continuar */
+  var STEP={sR:'route', s2:'trip', sP:'profile', sD:'diet', s3:'interests'};
+  var GEO={origin:T.ORIGINS, dest:T.DESTINATIONS};
+  var MULTI={diet:true, interests:true};
 
-  var RECO={
-    tourism:{es:'✦ Recomendaciones · Turismo',en:'✦ Recommendations · Tourism',items:[
-      {t_es:'Alojamiento',t_en:'Stay',c:'linear-gradient(135deg,#7F5AF0,#2CB1BC)',n:'Hotel Bogotá Plaza',d_es:'A 15 min · desde $220.000',d_en:'15 min · from $220,000',ic:'bed'},
-      {t_es:'Gastronomía',t_en:'Food',c:'linear-gradient(135deg,#FF8E53,#FF4D8D)',n:'Andrés Carne de Res',d_es:'Comida típica · 20 min',d_en:'Typical food · 20 min',ic:'food'},
-      {t_es:'Actividad',t_en:'Activity',c:'linear-gradient(135deg,#FF4D8D,#7F5AF0)',n:'Monserrate',d_es:'Vista panorámica · 35 min',d_en:'Panoramic view · 35 min',ic:'star'}]},
-    business:{es:'✦ Recomendaciones · Negocios',en:'✦ Recommendations · Business',items:[
-      {t_es:'Alojamiento',t_en:'Stay',c:'linear-gradient(135deg,#7F5AF0,#2CB1BC)',n:'Hotel Click Clack',d_es:'Zona empresarial · 10 min',d_en:'Business area · 10 min',ic:'bed'},
-      {t_es:'Gastronomía',t_en:'Food',c:'linear-gradient(135deg,#FF8E53,#FF4D8D)',n:'Criterión',d_es:'Restaurante ejecutivo · 15 min',d_en:'Executive dining · 15 min',ic:'food'},
-      {t_es:'Actividad',t_en:'Activity',c:'linear-gradient(135deg,#2CB1BC,#7F5AF0)',n:'Ágora Bogotá',d_es:'Centro de convenciones · 12 min',d_en:'Convention center · 12 min',ic:'brief'}]},
-    family:{es:'✦ Recomendaciones · Familia',en:'✦ Recommendations · Family',items:[
-      {t_es:'Alojamiento',t_en:'Stay',c:'linear-gradient(135deg,#7F5AF0,#2CB1BC)',n:'Estelar Suites',d_es:'Apartamentos familiares · 18 min',d_en:'Family suites · 18 min',ic:'bed'},
-      {t_es:'Gastronomía',t_en:'Food',c:'linear-gradient(135deg,#FF8E53,#FF4D8D)',n:'Crepes & Waffles',d_es:'Ideal para niños · 20 min',d_en:'Kid-friendly · 20 min',ic:'food'},
-      {t_es:'Actividad',t_en:'Activity',c:'linear-gradient(135deg,#FF4D8D,#FF8E53)',n:'Maloka / Zoológico',d_es:'Planes en familia · 30 min',d_en:'Family plans · 30 min',ic:'family'}]}
-  };
+  var CAT_COLOR={stay:'linear-gradient(135deg,#7F5AF0,#2CB1BC)', food:'linear-gradient(135deg,#FF8E53,#FF4D8D)', activity:'linear-gradient(135deg,#FF4D8D,#7F5AF0)', fun:'linear-gradient(135deg,#FFB547,#FF4D8D)'};
+  var CAT_EMOJI={stay:'🛏️', food:'🍽️', activity:'🏛️', fun:'🎉'};
   var ICONS={
     bed:'<svg class="ic" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="6" rx="2" fill="#fff"/><rect x="3" y="15" width="18" height="4" fill="#fff"/><circle cx="7" cy="11" r="2.4" fill="#fff"/></svg>',
     food:'<svg class="ic" viewBox="0 0 24 24"><path d="M7 3v8M9 3v18M15 3c-1 1-2 3-2 5s1 3 2 3v10" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>',
     star:'<svg class="ic" viewBox="0 0 24 24"><path d="M12 2l2.9 6 6.6.5-5 4.3 1.6 6.4L12 16l-6.1 3.2 1.6-6.4-5-4.3 6.6-.5z" fill="#fff"/></svg>',
     brief:'<svg class="ic" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="11" rx="2" fill="#fff"/><rect x="9" y="4" width="6" height="4" rx="1" fill="none" stroke="#fff" stroke-width="2"/></svg>',
-    family:'<svg class="ic" viewBox="0 0 24 24"><circle cx="8" cy="8" r="3" fill="#fff"/><circle cx="16" cy="9" r="2.4" fill="#fff"/><path d="M3 20c0-3 2.5-5 5-5s5 2 5 5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg>'
+    family:'<svg class="ic" viewBox="0 0 24 24"><circle cx="8" cy="8" r="3" fill="#fff"/><circle cx="16" cy="9" r="2.4" fill="#fff"/><path d="M3 20c0-3 2.5-5 5-5s5 2 5 5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg>',
+    music:'<svg class="ic" viewBox="0 0 24 24"><path d="M9 18V5l11-2v13" stroke="#fff" stroke-width="2" fill="none" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="2.6" fill="#fff"/><circle cx="17.5" cy="16" r="2.6" fill="#fff"/></svg>',
+    ticket:'<svg class="ic" viewBox="0 0 24 24"><path d="M3 8a2 2 0 002-2h14a2 2 0 002 2v2a2 2 0 000 4v2a2 2 0 00-2 2H5a2 2 0 00-2-2v-2a2 2 0 000-4z" fill="#fff"/><path d="M14 6v12" stroke="#FF8E53" stroke-width="1.6" stroke-dasharray="2 2"/></svg>',
+    leaf:'<svg class="ic" viewBox="0 0 24 24"><path d="M5 19C5 10 11 5 20 4c-1 9-6 15-15 15z" fill="#fff"/><path d="M5 19l8-8" stroke="#7F5AF0" stroke-width="1.8" stroke-linecap="round"/></svg>',
+    bolt:'<svg class="ic" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z" fill="#fff"/></svg>',
+    info:'<svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="#fff" stroke-width="2"/><path d="M12 11v6M12 7.5v.5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>',
+    alert:'<svg class="ic" viewBox="0 0 24 24"><path d="M12 3l10 18H2z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M12 10v5M12 18v.5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>',
+    shield:'<svg class="ic" viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z" fill="#fff"/><path d="M8.5 12l2.5 2.5 4.5-5" stroke="#FF4D8D" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>'
   };
 
+  var LANGS=['es','en','pt'];
+  function t(es,en,pt){return lang==='en'?en:lang==='pt'?(pt||es):es;}
   function applyLang(){
+    var city=choice.destCity ? T.destName(choice,lang) : 'Colombia';
     document.querySelectorAll('[data-es]').forEach(function(el){
-      el.innerHTML = lang==='es'?el.getAttribute('data-es'):el.getAttribute('data-en');
+      el.innerHTML = (el.getAttribute('data-'+lang)||el.getAttribute('data-es')).replace('{city}',city);
     });
-    document.getElementById('lb-es').classList.toggle('on',lang==='es');
-    document.getElementById('lb-en').classList.toggle('on',lang==='en');
+    LANGS.forEach(function(l){
+      var b=document.getElementById('lb-'+l);
+      b.classList.toggle('on',lang===l); b.setAttribute('aria-pressed',lang===l?'true':'false');
+    });
     document.documentElement.lang=lang;
+    renderSelects();
   }
-  function setLang(l){lang=l; applyLang();}
+
+  /* ---- listas país / ciudad ---- */
+  function fillSelect(sel, items, value, placeholder){
+    var h='<option value="" disabled'+(value?'':' selected')+'>'+placeholder+'</option>';
+    items.forEach(function(it){ h+='<option value="'+it.id+'"'+(it.id===value?' selected':'')+'>'+it.name+'</option>'; });
+    sel.innerHTML=h; sel.classList.toggle('filled',!!value);
+  }
+  function renderSelects(){
+    ['origin','dest'].forEach(function(k){
+      var cs=document.getElementById(k+'Country'), ci=document.getElementById(k+'City');
+      var country=choice[k+'Country'];
+      fillSelect(cs, T.countries(GEO[k],lang), country, t('Elige un país','Choose a country','Escolha um país'));
+      fillSelect(ci, country?T.cities(GEO[k],country,lang):[], choice[k+'City'], country?t('Elige una ciudad','Choose a city','Escolha uma cidade'):t('Primero el país','Country first','Primeiro o país'));
+      ci.disabled=!country;
+    });
+  }
+  function pickCountry(k, v){
+    choice[k+'Country']=v; choice[k+'City']=null;
+    var cs=T.cities(GEO[k],v,lang);
+    if(cs.length===1) choice[k+'City']=cs[0].id;   /* p. ej. "Otro país" -> "Otra ciudad" */
+    if(k==='origin') choice.origin=T.isInternational(choice)?'international':'national';
+    renderSelects(); updateNext();
+  }
+  function pickCity(k, v){ choice[k+'City']=v; renderSelects(); updateNext(); if(k==='dest') applyLang(); }
+  function setLang(l){lang=l; applyLang(); if(current==='s4') renderReco();}
   function go(id){
     document.getElementById(current).classList.remove('active');
-    document.getElementById(id).classList.add('active');
-    current=id; updateDots();
+    var s=document.getElementById(id); s.classList.add('active'); s.scrollTop=0;
+    current=id; updateDots(); updateNext();
   }
-  function pick(el){el.parentNode.querySelectorAll('.opt').forEach(function(o){o.classList.remove('sel');}); el.classList.add('sel');}
-  function toggle(el){el.classList.toggle('sel');}
-  function showReco(){
-    var data=RECO[choice.reason]||RECO.tourism;
-    document.getElementById('recoPill').textContent=lang==='es'?data.es:data.en;
-    var h='';
-    data.items.forEach(function(it){
-      h+='<div class="card"><div class="thumb" style="background:'+it.c+'">'+ICONS[it.ic]+
-        '</div><div class="body"><div class="tagn">'+(lang==='es'?it.t_es:it.t_en)+'</div><h3>'+it.n+
-        '</h3><p>'+(lang==='es'?it.d_es:it.d_en)+'</p><span class="more">'+(lang==='es'?'Ver más':'See more')+'</span></div></div>';
+
+  /* refleja en pantalla lo que hay en choice para un grupo */
+  function syncGroup(group){
+    var v=choice[group];
+    document.querySelectorAll('.opt[data-group="'+group+'"]').forEach(function(o){
+      var val=o.getAttribute('data-val');
+      var on=MULTI[group] ? v.indexOf(val)>=0 : String(v)===val;
+      o.classList.toggle('sel',on); o.setAttribute('aria-pressed',on?'true':'false');
     });
-    document.getElementById('recoCards').innerHTML=h; go('s4');
   }
+  function pick(el){
+    var g=el.getAttribute('data-group'), v=el.getAttribute('data-val');
+    choice[g]= g==='budget' ? parseInt(v,10) : v;
+    syncGroup(g); updateNext();
+  }
+  function toggle(el){
+    var g=el.getAttribute('data-group'), v=el.getAttribute('data-val');
+    choice[g]= g==='diet' ? T.toggleDiet(choice[g],v) : T.toggleValue(choice[g],v);
+    syncGroup(g); updateNext();
+  }
+  /* bloquea "Continuar" hasta que la pantalla esté completa */
+  function updateNext(){
+    var step=STEP[current]; if(!step) return;
+    var ok=T.isStepComplete(choice,step), s=document.getElementById(current);
+    var b=s.querySelector('[data-next]'); if(b){b.disabled=!ok; b.setAttribute('aria-disabled',ok?'false':'true');}
+    var h=s.querySelector('.hint'); if(h) h.style.visibility=ok?'hidden':'visible';
+  }
+
+  function card(color,icon,tag,title,meta,desc,extra){
+    return '<div class="card'+(extra||'')+'"><div class="thumb" style="background:'+color+'">'+ICONS[icon]+
+      '</div><div class="body"><div class="tagn">'+tag+'</div><h3>'+title+'</h3>'+
+      (meta?'<div class="meta">'+meta+'</div>':'')+desc+'</div></div>';
+  }
+  /* ---- CLIMA del destino ---- */
+  var wxCache={};             /* city -> {at, data} · válido 15 min */
+  var WX_TTL=15*60*1000, WX_TIMEOUT=7000;
+  function wxCardHTML(city){
+    var name=T.destName({destCountry:'CO',destCity:city},lang), clim=T.CLIMATE[city]||{};
+    var hit=wxCache[city], w=hit&&hit.data, inner, icon;
+    if(hit===undefined || hit.loading){
+      icon='🌡️';
+      inner='<div class="tagn">'+t('Clima en ','Weather in ','Clima em ')+name+'</div><h3 class="wx-loading">'+t('Cargando pronóstico…','Loading forecast…','Carregando previsão…')+'</h3>';
+    } else if(w){
+      var now=T.weatherInfo(w.code,lang); icon=now.icon;
+      var days=w.days.map(function(d,i){
+        var inf=T.weatherInfo(d.code,lang);
+        return '<div class="wx-day" title="'+inf.text+'"><b>'+T.dayName(d.date,lang,i)+'</b><span class="e" aria-hidden="true">'+inf.icon+'</span>'+
+          d.max+'° / '+d.min+'°<br><span class="r">💧 '+(d.rain==null?'–':d.rain+'%')+'</span></div>';
+      }).join('');
+      var tips=T.weatherTips(w,city,lang);
+      inner='<div class="tagn">'+t('Clima en ','Weather in ','Clima em ')+name+' · '+t('Ahora','Now','Agora')+'</div>'+
+        '<h3>'+w.temp+' °C · '+now.text+'</h3>'+
+        '<div class="meta">'+t('Sensación ','Feels like ','Sensação ')+w.feels+' °C · '+t('Humedad ','Humidity ','Umidade ')+w.humidity+'%</div>'+
+        '<div class="wx-days" role="list" aria-label="'+t('Pronóstico de 3 días','3-day forecast','Previsão de 3 dias')+'">'+days+'</div>'+
+        (tips.length?'<ul>'+tips.map(function(x){return '<li>• '+x+'</li>';}).join('')+'</ul>':'')+
+        '<p class="wx-src">'+t('Datos: ','Data: ','Dados: ')+'Open-Meteo.com</p>';
+    } else {
+      icon='🌤️';
+      var tp=T.weatherTips(null,city,lang);
+      inner='<div class="tagn">'+t('Clima típico en ','Typical weather in ','Clima típico em ')+name+'</div>'+
+        '<h3>'+clim.min+'–'+clim.max+' °C</h3><p>'+(clim[lang]||clim.es||'')+'</p>'+
+        (tp.length?'<ul>'+tp.map(function(x){return '<li>• '+x+'</li>';}).join('')+'</ul>':'')+
+        '<p class="wx-src">'+t('Sin conexión: se muestran promedios aproximados.','Offline: showing approximate averages.','Sem conexão: mostrando médias aproximadas.')+'</p>';
+    }
+    return '<div class="card wx" id="wxCard" aria-live="polite"><div class="thumb" style="background:linear-gradient(135deg,#2CB1BC,#7F5AF0)"><span class="wx-ic" aria-hidden="true">'+icon+
+      '</span></div><div class="body">'+inner+'</div></div>';
+  }
+  function refreshWxCard(city){
+    var el=document.getElementById('wxCard');
+    if(el && current==='s4' && choice.destCity===city) el.outerHTML=wxCardHTML(city);
+  }
+  function loadWeather(city){
+    var hit=wxCache[city];
+    if(hit && (hit.loading || Date.now()-hit.at < (hit.data?WX_TTL:60000))) return;
+    var url=T.weatherUrl(city);
+    if(!url || !window.fetch){ wxCache[city]={at:Date.now(), data:null}; return; }
+    wxCache[city]={loading:true};
+    var ctrl=window.AbortController?new AbortController():null;
+    var timer=setTimeout(function(){ if(ctrl) ctrl.abort(); }, WX_TIMEOUT);
+    fetch(url, ctrl?{signal:ctrl.signal}:{})
+      .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+      .then(function(j){ wxCache[city]={at:Date.now(), data:T.parseWeather(j)}; })
+      .catch(function(){ wxCache[city]={at:Date.now(), data:null}; })   /* sin conexión -> clima típico */
+      .then(function(){ clearTimeout(timer); refreshWxCard(city); });
+  }
+
+  function renderReco(){
+    var r=T.recommend(choice);
+    document.getElementById('recoPill').textContent='✦ '+t('Para ti','For you','Para você')+' · '+T.summary(choice,lang);
+    loadWeather(choice.destCity);
+    var h=wxCardHTML(choice.destCity), lastCat=null;
+    r.items.forEach(function(p){
+      if(p.cat!==lastCat){
+        lastCat=p.cat;
+        var n=r.items.filter(function(x){return x.cat===p.cat;}).length;
+        h+='<h3 class="sec">'+CAT_EMOJI[p.cat]+' '+T.label('cat',p.cat,lang)+' <span>· '+n+' '+(n===1?t('opción','option','opção'):t('opciones','options','opções'))+'</span></h3>';
+      }
+      var meta=new Array(p.price+1).join('$')+' · '+p.mins+' min '+t('desde el aeropuerto','from the airport','do aeroporto')+(p.nearAirport?' · ✈ '+t('Cerca','Nearby','Perto'):'');
+      var f=T.placeFacts(p,lang);
+      var facts='<ul class="facts">'+
+        '<li><span aria-hidden="true">'+(p.cat==='stay'?'🛎️':'⏱️')+'</span><b>'+(p.cat==='stay'?t('Estadía','Stay','Estadia'):t('Duración','Duration','Duração'))+':</b> '+f.time+'</li>'+
+        '<li><span aria-hidden="true">💵</span><b>'+t('Precio','Price','Preço')+':</b> '+f.price+'</li>'+
+        '<li><span aria-hidden="true">🕘</span><b>'+t('Horario','Hours','Horário')+':</b> '+f.hours+'</li></ul>';
+      var tag=T.label('cat',p.cat,lang)+(p.type?' · '+T.label('type',p.type,lang):'');
+      h+=card(CAT_COLOR[p.cat], p.ic, tag, p.n, meta,
+        '<p>'+(p['d_'+lang]||p.d_es)+'</p>'+facts+'<span class="more">'+t('Ver más','See more','Ver mais')+'</span>');
+    });
+    r.noMatch.forEach(function(cat){
+      h+=card('linear-gradient(135deg,#5b6280,#2a3350)','alert',T.label('cat',cat,lang),t('Sin coincidencias','No matches','Sem resultados'),'',
+        '<p>'+T.noMatchText(cat,choice,lang)+'</p>');
+    });
+    var tips=T.getTips(choice,lang);
+    if(tips.length){
+      h+=card('linear-gradient(135deg,#2CB1BC,#7F5AF0)','info',t('Consejos','Tips','Dicas'),t('Para tu viaje','For your trip','Para sua viagem'),'',
+        '<ul>'+tips.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>',' tips');
+    }
+    var safe=T.safetyTips(choice,lang);
+    h+=card('linear-gradient(135deg,#FF4D8D,#FF8E53)','shield',t('Seguridad','Safety','Segurança'),t('Viaja tranquilo','Travel safe','Viaje tranquilo'),
+      '🚨 '+t('Emergencias: ','Emergencies: ','Emergências: ')+'<a href="tel:'+T.EMERGENCY+'" class="sos">'+T.EMERGENCY+'</a>',
+      '<ul>'+safe.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>',' tips safety');
+    h+='<p class="disclaimer">'+t('Precios, duraciones y horarios son de referencia (aproximados). Confírmalos antes de ir.','Prices, durations and hours are for reference only (approximate). Confirm before you go.','Preços, durações e horários são de referência (aproximados). Confirme antes de ir.')+'</p>';
+    document.getElementById('recoCards').innerHTML=h;
+  }
+  function showReco(){ if(!T.isStepComplete(choice,'interests')) return; renderReco(); go('s4'); }
+
   function rate(n){document.querySelectorAll('#stars .star').forEach(function(s,i){s.classList.toggle('on',i<n);});}
-  function restart(){choice={reason:'tourism'}; document.querySelectorAll('.opt').forEach(function(o){o.classList.remove('sel');}); rate(0); go('s1');}
+  function restart(){
+    choice=T.emptyChoice();
+    document.querySelectorAll('.opt').forEach(function(o){o.classList.remove('sel'); o.setAttribute('aria-pressed','false');});
+    document.getElementById('recoCards').innerHTML='';
+    rate(0); applyLang(); go('s1');
+  }
   function updateDots(){
     var i=order.indexOf(current), html='';
     for(var k=0;k<order.length;k++){html+='<div class="dot'+(k===i?' on':'')+'"></div>';}
     document.getElementById('dots').innerHTML=html;
   }
-  applyLang(); updateDots();
+
+  /* accesibilidad: opciones operables con teclado */
+  document.querySelectorAll('.opt').forEach(function(o){
+    o.setAttribute('role','button'); o.setAttribute('tabindex','0'); o.setAttribute('aria-pressed','false');
+    o.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault(); o.click();} });
+  });
+  applyLang(); updateDots(); updateNext();
 </script>
 </body>
 </html>

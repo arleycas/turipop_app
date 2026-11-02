@@ -8,10 +8,13 @@ Proyecto académico — *Metodologías Ágiles para la Gestión de Proyectos*, U
 
 ## ✨ Características
 - Interfaz táctil tipo tótem, diseño moderno (glassmorphism, degradados, animaciones).
-- **Bilingüe**: español / inglés.
+- **Trilingüe**: español / inglés / portugués.
 - **Personalización real**: las recomendaciones cambian según el motivo del viaje
   (Turismo / Negocios / Familia).
 - Captura de preferencias: procedencia, motivo, tiempo disponible e intereses.
+- **Consejos de seguridad** personalizados por destino, acompañantes y origen, con la línea de emergencias 123.
+- **Entretenimiento variado** (vida nocturna, shows, parques, aventura, deporte, bienestar) en los 6 destinos.
+- Cada lugar muestra **duración, precio en COP y horarios** (datos de referencia, no oficiales).
 - Encuesta de satisfacción con estrellas.
 - 100% HTML/CSS/JS, sin dependencias ni backend.
 
